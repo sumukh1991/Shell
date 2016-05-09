@@ -1,0 +1,438 @@
+shallymy : grading start
+Switch to /home/min/a/ece695os/tmp/grading/shallymy/....
+ ==== Check if key files exist ==== 
+Makefile ... yes
+report.pdf ... NO
+README ... NO
+ ==== Build start ==== 
++ clean
++ cc cmdline.c
++ cc myshell.c
++ cc main-b.c
++ link myshell
+myshell ... yes! (./myshell)
+ ==== Test run start ==== 
+Any zombie around?... no.
+Starting test 1: echo Hooray
+the raw result is:
+-------
+Hooray
+
+-------
+Starting test 2: echo Semi ;
+the raw result is:
+-------
+Semi
+
+-------
+Starting test 3: echo Line & sleep 1
+the raw result is:
+-------
+Line
+
+-------
+Starting test 4: echo "" """" EOL
+the raw result is:
+-------
+  EOL
+
+-------
+Starting test 5: echo He"llo wo"rld
+the raw result is:
+-------
+Hello world
+
+-------
+Starting test 6: echo Hello   World
+the raw result is:
+-------
+Hello World
+
+-------
+Starting test 7: echo Hello World
+the raw result is:
+-------
+Hello World
+
+-------
+Starting test 8: echo Pipe | cat
+the raw result is:
+-------
+Pipe
+
+-------
+Starting test 9: true && echo True
+the raw result is:
+-------
+True
+
+-------
+Starting test 10: echo True || echo False
+the raw result is:
+-------
+True
+
+-------
+Starting test 11: grep -cv NotThere main-a.c && echo False
+the raw result is:
+-------
+88
+False
+
+-------
+Starting test 12: false || echo True
+the raw result is:
+-------
+True
+
+-------
+Starting test 13: true && false || true && echo Good
+the raw result is:
+-------
+Good
+
+-------
+Starting test 14: echo True && false || false && echo Bad
+the raw result is:
+-------
+True
+
+-------
+Starting test 15: ( ( false || echo False && false ) || ( echo Inherited ) ) && echo Nested
+the raw result is:
+-------
+False
+Inherited
+Nested
+
+-------
+Starting test 16: echo Good | grep G
+the raw result is:
+-------
+Good
+
+-------
+Starting test 17: echo Bad | grep -c G
+the raw result is:
+-------
+0
+
+-------
+Starting test 18: echo Line | cat | wc -l
+the raw result is:
+-------
+1
+
+-------
+Starting test 19: echo GoHangASalamiImALasagnaHog | rev | tee temp.out | rev | rev
+the raw result is:
+-------
+goHangasaLAmIimalaSAgnaHoG
+
+-------
+Starting test 20: rev temp.out | rev
+the raw result is:
+-------
+goHangasaLAmIimalaSAgnaHoG
+
+-------
+Starting test 21: cat temp.out | tr [A-Z] [a-z] | md5sum
+the raw result is:
+-------
+8e21d03f7955611616bcd2337fe9eac1  -
+
+-------
+Starting test 22: rev temp.out | md5sum | tr [a-z] [A-Z]
+the raw result is:
+-------
+502B109B37EC769342948826736FA063  -
+
+-------
+Starting test 23: echo Hello ; echo There
+the raw result is:
+-------
+Hello
+There
+
+-------
+Starting test 24: echo Hello ;   echo There ; echo Who ; echo Are ; echo You ; echo ?
+the raw result is:
+-------
+Hello
+There
+Who
+Are
+You
+?
+
+-------
+Starting test 25: rm -f temp.out ; echo Removed
+the raw result is:
+-------
+Removed
+
+-------
+Starting test 26: sleep 2 ; ps u -C sleep | grep ece695os ; echo Done
+the raw result is:
+-------
+Done
+
+-------
+Starting test 27: ( echo Line )
+the raw result is:
+-------
+Line
+
+-------
+Starting test 28: ( echo Hello ; echo World ) | wc -l
+the raw result is:
+-------
+2
+
+-------
+Starting test 29: ( echo Line ; echo Line ) | uniq | wc -l
+the raw result is:
+-------
+1
+
+-------
+Starting test 30: ( echo Hello -" ) " World " ( "- ; echo Next ) | cat
+the raw result is:
+-------
+Hello - )  World  ( -
+Next
+
+-------
+Starting test 31: ( true ) && echo True
+the raw result is:
+-------
+True
+
+-------
+Starting test 32: ( false || true ) && echo True
+the raw result is:
+-------
+True
+
+-------
+Starting test 33: ( sleep 1 ; echo Sleep ) & echo Wake ; sleep 2
+the raw result is:
+-------
+Wake
+Sleep
+
+-------
+Starting test 34: echo echo Line 1 > temp.out ; echo echo Line 2 | cat temp.out - > temp2.out ; mv -f temp2.out temp.out ; echo echo Line 3 | cat temp.out - > temp2.out ; mv -f temp2.out temp.out ; echo Build
+the raw result is:
+-------
+Build
+
+-------
+Starting test 35: ./myshell -q < temp.out
+the raw result is:
+-------
+Line 1
+Line 2
+Line 3
+
+-------
+Starting test 36: echo Start ; echo File > temp.out
+the raw result is:
+-------
+Start
+
+-------
+Starting test 37: cat < temp.out ; echo Done
+the raw result is:
+-------
+File
+Done
+
+-------
+Starting test 38: rm file_that_is_not_there 2> temp.out ; wc -l temp.out ; rm -f temp.out
+the raw result is:
+-------
+1 temp.out
+
+-------
+Starting test 39: ( echo Hello ; echo Bye ) > temp.out ; cat < temp.out > temp2.out ; cat temp.out temp2.out
+the raw result is:
+-------
+Hello
+Bye
+Hello
+Bye
+
+-------
+Starting test 40: sort < temp.out | ( head -n 2 ; echo First && echo Good )
+the raw result is:
+-------
+Bye
+Hello
+First
+Good
+
+-------
+Starting test 41: sort < temp.out > temp2.out ; tail -n 2 temp2.out ; rm -f temp.out temp2.out
+the raw result is:
+-------
+Bye
+Hello
+
+-------
+Starting test 42: sleep 2 & ps u -C sleep | grep ece695os | wc -l
+the raw result is:
+-------
+1
+
+-------
+Starting test 43: ( sleep 2 ) & ps u -C sleep | grep ece695os | wc -l
+the raw result is:
+-------
+1
+
+-------
+Starting test 44: ( echo Hello ; sleep 2 ) & sleep 1 ; ps u -C sleep | grep ece695os | wc -l
+the raw result is:
+-------
+Hello
+1
+
+-------
+Starting test 45: ( echo Hello ; sleep 2 & echo Bye ) ; ps u -C sleep | grep ece695os | wc -l
+the raw result is:
+-------
+Hello
+Bye
+1
+
+-------
+Starting test 46: cd / ; pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 47: cd / ; cd /tmp ; pwd
+the raw result is:
+-------
+/tmp
+
+-------
+Starting test 48: cd / ; cd /doesnotexist 2> /dev/null ; pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 49: cd / ; ( cd /tmp ) ; pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 50: cd / && pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 51: echo go ; cd /doesnotexist 2> /dev/null > /dev/null && pwd
+the raw result is:
+-------
+go
+
+-------
+Starting test 52: cd /doesnotexist 2> /dev/null > /dev/null || echo does not exist
+the raw result is:
+-------
+does not exist
+
+-------
+Starting test 53: cd /tmp && cd / && pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 54: cd / ; ( cd /doesnotexist1 2> /dev/null > /dev/null || cd / || cd /doesnotexist2 2> /dev/null > /dev/null ) && pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 55: cd / ; cd /doesnotexist 2> /dev/null > /dev/null ; pwd
+the raw result is:
+-------
+/
+
+-------
+Starting test 56: echo echo Line 1 > temp.out ; echo exit | cat temp.out - > temp2.out ; mv -f temp2.out temp.out ; echo echo Line 3 | cat temp.out - > temp2.out ; mv -f temp2.out temp.out ; cat temp.out
+the raw result is:
+-------
+echo Line 1
+exit
+echo Line 3
+
+-------
+Starting test 57: ./myshell -q < temp.out
+the raw result is:
+-------
+Line 1
+
+-------
+Starting test 58: echo Before ; exit ; echo After
+the raw result is:
+-------
+Before
+
+-------
+Starting test 59: ( exit ) ; echo After
+the raw result is:
+-------
+After
+
+-------
+Starting test 60: rm -f temp.out ; echo echo Line 1 "&" sleep 1 > temp1.out ; echo echo Line 2 | cat temp1.out - > tempt.out ; mv -f tempt.out temp1.out ; cat temp1.out
+the raw result is:
+-------
+echo Line 1 & sleep 1
+echo Line 2
+
+-------
+Starting test 61: echo "sleep 2 & ps u -C sleep | grep ece695os | wc -l" > temp2.out ; echo "sleep 3" | cat temp2.out - > tempt.out ; mv -f tempt.out temp2.out ; cat temp2.out
+the raw result is:
+-------
+sleep 2 & ps u -C sleep | grep ece695os | wc -l
+sleep 3
+
+-------
+Starting test 62: echo "ps u -C sleep | grep ece695os | wc -l" | cat temp2.out - > tempt.out ; mv -f tempt.out temp2.out ; cat temp2.out
+the raw result is:
+-------
+sleep 2 & ps u -C sleep | grep ece695os | wc -l
+sleep 3
+ps u -C sleep | grep ece695os | wc -l
+
+-------
+Starting test 63: cat temp1.out | ./myshell -q & sleep 2 ; ps u -C echo | grep ece695os | grep "<defunct>$"
+the raw result is:
+-------
+Line 1
+Line 2
+
+-------
+Starting test 64: ./myshell -q < temp2.out
+the raw result is:
+-------
+1
+0
+
+-------
+64 of 64 tests passed
+==== Add-on for jobs shallymy ====
+PID    PPID   STATUS
+5805  5804  RUNNING
+5806  5804  RUNNING
+
+
